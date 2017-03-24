@@ -3,6 +3,7 @@ package com.btwasilow.theabyss;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
+import com.btwasilow.theabyss.component.MapComponent;
 import com.btwasilow.theabyss.display.Display;
 
 public class Game implements Runnable {
@@ -38,8 +39,9 @@ public class Game implements Runnable {
 			return;
 		}
 		g = (Graphics2D) bs.getDrawGraphics();
-		
+
 		// draw here
+		MapComponent.render(g);
 		
 		bs.show();
 		g.dispose();
