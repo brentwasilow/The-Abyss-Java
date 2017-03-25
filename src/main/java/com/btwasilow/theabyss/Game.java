@@ -1,7 +1,10 @@
 package com.btwasilow.theabyss;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 import com.btwasilow.theabyss.component.MapComponent;
 import com.btwasilow.theabyss.constants.Consts;
@@ -42,6 +45,9 @@ public class Game implements Runnable {
 		g = (Graphics2D) bs.getDrawGraphics();
 
 		// draw here
+		g.setColor(Color.BLACK);
+		g.clearRect(0, 0, Consts.WIDTH, Consts.HEIGHT);
+		
 		MapComponent.render(g);
 		
 		bs.show();
