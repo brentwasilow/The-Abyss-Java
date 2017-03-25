@@ -3,12 +3,11 @@ package com.btwasilow.theabyss;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 
 import com.btwasilow.theabyss.component.MapComponent;
 import com.btwasilow.theabyss.constants.Consts;
 import com.btwasilow.theabyss.display.Display;
+import com.btwasilow.theabyss.level.Level;
 
 public class Game implements Runnable {
 
@@ -23,6 +22,8 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics2D g;
 	
+	private Level level;
+	
 	public Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -31,6 +32,8 @@ public class Game implements Runnable {
 
 	private void init() {
 		display = new Display(title, width, height);
+		
+		level = new Level("res/level1.png");
 	}
 	
 	private void update() {
@@ -48,7 +51,7 @@ public class Game implements Runnable {
 		g.setColor(Color.BLACK);
 		g.clearRect(0, 0, Consts.WIDTH, Consts.HEIGHT);
 		
-		MapComponent.render(g);
+		MapComponent.render(g, level);
 		
 		bs.show();
 		g.dispose();

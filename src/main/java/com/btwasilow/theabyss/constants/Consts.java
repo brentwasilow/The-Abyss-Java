@@ -31,6 +31,10 @@ public final class Consts {
 	
 	public static final double PLAYER_HEIGHT = 32.0;
 	
+	public static final int EMPTY_BLOCK = 0;
+	public static final int BRICK = 1;
+	public static final int DOOR = 2;
+	
 	private Consts() {
 	}
 }

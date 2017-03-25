@@ -5,16 +5,13 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import com.btwasilow.theabyss.constants.Consts;
+import com.btwasilow.theabyss.level.Level;
 import com.btwasilow.theabyss.utility.Util;
 
 public class MapComponent {
 	
 	public static BufferedImage image = new BufferedImage(Consts.WIDTH, Consts.HEIGHT, BufferedImage.TYPE_INT_RGB);
 	public static int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-	
-	static double playerAngle = 90.0;
-	static double playerX = (2 * 64) + 32;
-	static double playerY = (2 * 64) + 32;
 	
 	static int textureOffsetVertical;
 	static int textureOffsetHorizontal;
@@ -23,7 +20,7 @@ public class MapComponent {
 	static int subimageOffsetHorizontalX;
 	static int subimageOffsetHorizontalY;
 	
-	static int[][] map = {{1, 1, 2, 1, 1},
+	static int[][] map = {{1, 1, 1, 1, 1},
 						  {1, 0, 0, 0, 1},
 						  {1, 0, 0, 0, 1},
 						  {1, 0, 0, 0, 1},
@@ -33,7 +30,7 @@ public class MapComponent {
 		
 	}
 	
-	public static void render(Graphics2D g) {
+	public static void render(Graphics2D g, Level level) {
 		double numerator = Consts.PLAYER_HEIGHT * Consts.DISTANCE_TO_PROJECTION;
 		double angle;
 		
@@ -51,10 +48,10 @@ public class MapComponent {
 		
 		for (int x = 0; x < Consts.WIDTH; x++) {
 			double ang = Math.atan((double) (x - Consts.WIDTH_2) / Consts.DISTANCE_TO_PROJECTION);
-			angle = Util.boundAngle(playerAngle + Math.toDegrees(ang));
+			angle = Util.boundAngle(level.getPlayer().getAngle() + Math.toDegrees(ang));
 		
-			verticalDistance = verticalIntersection(angle);
-			horizontalDistance = horizontalIntersection(angle);
+			verticalDistance = verticalIntersection(angle, level);
+			horizontalDistance = horizontalIntersection(angle, level);
 			
 			if (horizontalDistance < verticalDistance) {
 				distance = horizontalDistance;
@@ -118,7 +115,7 @@ public class MapComponent {
 		g.drawImage(image, 0, 0, Consts.WIDTH, Consts.HEIGHT, null);
 	}
 	
-	private static double verticalIntersection(double angle) {
+	private static double verticalIntersection(double angle, Level level) {
 		double verticalX;
 		double verticalY;
 		double dx;
@@ -130,15 +127,15 @@ public class MapComponent {
 		}
 		
 		if (angle > 90.0 && angle < 270.0) {
-			verticalX = ((int) (playerX) / Consts.TILE_SIZE) * Consts.TILE_SIZE;
+			verticalX = ((int) (level.getPlayer().getX()) / Consts.TILE_SIZE) * Consts.TILE_SIZE;
 			dx = -Consts.TILE_SIZE;
-			verticalY = playerY + (playerX - verticalX) * t;
+			verticalY = level.getPlayer().getY() + (level.getPlayer().getX() - verticalX) * t;
 			dy = t * Consts.TILE_SIZE;
 			verticalX--;
 		} else {
-			verticalX = (((int) (playerX) / Consts.TILE_SIZE) * Consts.TILE_SIZE) + Consts.TILE_SIZE;
+			verticalX = (((int) (level.getPlayer().getX()) / Consts.TILE_SIZE) * Consts.TILE_SIZE) + Consts.TILE_SIZE;
 			dx = Consts.TILE_SIZE;
-			verticalY = playerY + (playerX - verticalX) * t;
+			verticalY = level.getPlayer().getY() + (level.getPlayer().getX() - verticalX) * t;
 			dy = -t * Consts.TILE_SIZE;
 		}
 		int column = (int) (verticalX) / Consts.TILE_SIZE;
@@ -163,15 +160,15 @@ public class MapComponent {
 			block = map[row][column];
 		}
 		if (block == 2) {
-			double tempDistance = ((verticalX)+(dx/2.0)-(playerX))*((verticalX)+(dx/2.0)-(playerX))+
-					((verticalY)+(dy/2.0)-(playerY))*((verticalY)+(dy/2.0)-(playerY));
+			double tempDistance = ((verticalX)+(dx/2.0)-(level.getPlayer().getX()))*((verticalX)+(dx/2.0)-(level.getPlayer().getX()))+
+					((verticalY)+(dy/2.0)-(level.getPlayer().getY()))*((verticalY)+(dy/2.0)-(level.getPlayer().getY()));
 			return Math.sqrt(tempDistance);
 		}
-		double tempDistance = ((verticalX - playerX) * (verticalX - playerX)) + ((verticalY - playerY) * (verticalY - playerY));
+		double tempDistance = ((verticalX - level.getPlayer().getX()) * (verticalX - level.getPlayer().getX())) + ((verticalY - level.getPlayer().getY()) * (verticalY - level.getPlayer().getY()));
 		return Math.sqrt(tempDistance);
 	}
 	
-	public static double horizontalIntersection(double angle) {
+	public static double horizontalIntersection(double angle, Level level) {
 		double horizontalX;
 		double horizontalY;
 		double dx;
@@ -184,26 +181,26 @@ public class MapComponent {
 		}
 		
 		if (angle > 0.0 && angle < 180.0) {
-			horizontalY = ((int) (playerY) / Consts.TILE_SIZE) * Consts.TILE_SIZE;
+			horizontalY = ((int) (level.getPlayer().getY()) / Consts.TILE_SIZE) * Consts.TILE_SIZE;
 			dy = -Consts.TILE_SIZE;
 			
 			if (angle == 90.0) {
-				horizontalX = playerX;
+				horizontalX = level.getPlayer().getX();
 				dx = 0.0;
 			} else {
-				horizontalX = playerX + ((playerY - horizontalY) / t);
+				horizontalX = level.getPlayer().getX() + ((level.getPlayer().getY() - horizontalY) / t);
 				dx = Consts.TILE_SIZE / t;
 			}
 			horizontalY--;
 		} else {
-			horizontalY = (((int) (playerY) / Consts.TILE_SIZE) * Consts.TILE_SIZE) + Consts.TILE_SIZE;
+			horizontalY = (((int) (level.getPlayer().getY()) / Consts.TILE_SIZE) * Consts.TILE_SIZE) + Consts.TILE_SIZE;
 			dy = Consts.TILE_SIZE;
 			
 			if (angle == -270.0) {
-				horizontalX = playerX;
+				horizontalX = level.getPlayer().getX();
 				dx = 0.0;
 			} else {
-				horizontalX = playerX - ((playerY - horizontalY) / it);
+				horizontalX = level.getPlayer().getX() - ((level.getPlayer().getY() - horizontalY) / it);
 				dx = Consts.TILE_SIZE / it;
 			}
 		}
@@ -229,11 +226,11 @@ public class MapComponent {
 			block = map[row][column];
 		}
 		if (block == 2) {
-			double tempDistance = ((horizontalX)+(dx/2.0)-(playerX))*((horizontalX)+(dx/2.0)-(playerX))+
-					((horizontalY)+(dy/2.0)-(playerY))*((horizontalY)+(dy/2.0)-(playerY));
+			double tempDistance = ((horizontalX)+(dx/2.0)-(level.getPlayer().getX()))*((horizontalX)+(dx/2.0)-(level.getPlayer().getX()))+
+					((horizontalY)+(dy/2.0)-(level.getPlayer().getY()))*((horizontalY)+(dy/2.0)-(level.getPlayer().getY()));
 			return Math.sqrt(tempDistance);
 		}
-		double tempDistance = ((horizontalX - playerX) * (horizontalX - playerX)) + ((horizontalY - playerY) * (horizontalY - playerY));
+		double tempDistance = ((horizontalX - level.getPlayer().getX()) * (horizontalX - level.getPlayer().getX())) + ((horizontalY - level.getPlayer().getY()) * (horizontalY - level.getPlayer().getY()));
 		return Math.sqrt(tempDistance);
 	}
 }
