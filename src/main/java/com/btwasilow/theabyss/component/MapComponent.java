@@ -13,8 +13,8 @@ public class MapComponent {
 	public static int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
 	static double playerAngle = 90.0;
-	static double playerX = 160;
-	static double playerY = 192;
+	static double playerX = (2 * 64) + 32;
+	static double playerY = (2 * 64) + 32;
 	
 	static int textureOffsetVertical;
 	static int textureOffsetHorizontal;
@@ -23,10 +23,11 @@ public class MapComponent {
 	static int subimageOffsetHorizontalX;
 	static int subimageOffsetHorizontalY;
 	
-	static int[][] map = {{1, 1, 1, 1},
-						  {1, 0, 0, 1},
-						  {1, 0, 0, 1},
-						  {1, 1, 1, 1}};
+	static int[][] map = {{1, 1, 2, 1, 1},
+						  {1, 0, 0, 0, 1},
+						  {1, 0, 0, 0, 1},
+						  {1, 0, 0, 0, 1},
+						  {1, 1, 1, 1, 1}};
 	
 	public static void init() {
 		
@@ -71,20 +72,15 @@ public class MapComponent {
 			correctDistance = distance * Math.cos(ang);
 			projectedSliceHeight = Consts.DISTANCE_TO_PROJECTION_TILE_SIZE / correctDistance;
 			wallScale = Math.ceil(projectedSliceHeight) / Consts.TILE_SIZE;
-			
-			// Color color = determineDepthShade(distance);
-			// level.zBuffer[x] = distance;
-			int wallCounter = 0;
 
 			int wallTop = (Consts.HEIGHT_2) - (int) (Math.ceil(projectedSliceHeight)/2);
 			if (wallTop < 0) {
-				wallCounter += -wallTop;
 				wallTop = 0;
 			}
 			
 			int wallBottom = (Consts.HEIGHT_2) + (int) (Math.ceil(projectedSliceHeight)/2);
 			if (wallBottom >= Consts.HEIGHT) {
-				wallBottom = Consts.HEIGHT -1;
+				wallBottom = Consts.HEIGHT - 1;
 			}
 			
 			/******************
@@ -95,12 +91,28 @@ public class MapComponent {
 			int indexAdd = (Consts.WIDTH); // * 3);
 			for (int y = wallTop; y <= wallBottom; y++) {
 				pixels[index] = 255;
-				//pixels[index+1] = 0;
-				//pixels[index+2] = 0;
-				//pixels[index+3] = 0;
 				
-				wallCounter++;
 				index += indexAdd;
+			}
+			
+			/*******************
+			 * Floor Rendering *
+			 *******************/
+			
+			for (int y = wallBottom + 1; y < Consts.HEIGHT; y++) {
+				int floorIndex = y * Consts.WIDTH + x;
+				
+				pixels[floorIndex] = 16711680;
+			}
+			
+			/*********************
+			 * Ceiling Rendering *
+			 *********************/
+			
+			for (int y = wallTop - 1; y >= 0; y--) {
+				int ceilingIndex = y * Consts.WIDTH + x;
+				
+				pixels[ceilingIndex] = 65280;
 			}
 		}
 		g.drawImage(image, 0, 0, Consts.WIDTH, Consts.HEIGHT, null);
@@ -149,6 +161,11 @@ public class MapComponent {
 				return 1000000000.0;
 			}
 			block = map[row][column];
+		}
+		if (block == 2) {
+			double tempDistance = ((verticalX)+(dx/2.0)-(playerX))*((verticalX)+(dx/2.0)-(playerX))+
+					((verticalY)+(dy/2.0)-(playerY))*((verticalY)+(dy/2.0)-(playerY));
+			return Math.sqrt(tempDistance);
 		}
 		double tempDistance = ((verticalX - playerX) * (verticalX - playerX)) + ((verticalY - playerY) * (verticalY - playerY));
 		return Math.sqrt(tempDistance);
@@ -210,6 +227,11 @@ public class MapComponent {
 				return 1000000000.0;
 			}
 			block = map[row][column];
+		}
+		if (block == 2) {
+			double tempDistance = ((horizontalX)+(dx/2.0)-(playerX))*((horizontalX)+(dx/2.0)-(playerX))+
+					((horizontalY)+(dy/2.0)-(playerY))*((horizontalY)+(dy/2.0)-(playerY));
+			return Math.sqrt(tempDistance);
 		}
 		double tempDistance = ((horizontalX - playerX) * (horizontalX - playerX)) + ((horizontalY - playerY) * (horizontalY - playerY));
 		return Math.sqrt(tempDistance);
