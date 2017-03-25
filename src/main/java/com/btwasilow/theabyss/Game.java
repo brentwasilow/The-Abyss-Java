@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import com.btwasilow.theabyss.component.MapComponent;
+import com.btwasilow.theabyss.constants.Consts;
 import com.btwasilow.theabyss.display.Display;
 
 public class Game implements Runnable {
@@ -55,13 +56,12 @@ public class Game implements Runnable {
 		double delta = 0;
 		int frames = 0;
 		int updates = 0;
-		double ns = 1000000000.0 / 60.0;
 		
 		while (running) {
 			display.getCanvas().requestFocus();
 			
 			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
+			delta += (now - lastTime) / Consts.SKIP_TICKS;
 			lastTime = now;
 			
 			while (delta >= 1) {

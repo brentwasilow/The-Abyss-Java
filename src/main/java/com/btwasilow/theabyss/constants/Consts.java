@@ -22,13 +22,14 @@ public final class Consts {
 	public static final int DISTANCE_TO_PROJECTION = (int) (WIDTH_2/Math.tan(FOV_2_R));
 	public static final int DISTANCE_TO_PROJECTION_TILE_SIZE = DISTANCE_TO_PROJECTION * TILE_SIZE;
 	
-	public static final int TICKS_PER_SECOND = 60;
-	public static final int SKIP_TICKS = (int) (1000.0F/TICKS_PER_SECOND);
-	public static final int MAX_FRAMESKIP = 10;
+	public static final double TICKS_PER_SECOND = 60.0;
+	public static final double SKIP_TICKS = 1000000000.0 / TICKS_PER_SECOND;
 	
 	public static final int PIXEL_BUFFER_SIZE = (WIDTH * HEIGHT * 4);
 	
 	public static final double DOOR_OPEN_TICKS = 300.0;
+	
+	public static final double PLAYER_HEIGHT = 32.0;
 	
 	private Consts() {
 	}
