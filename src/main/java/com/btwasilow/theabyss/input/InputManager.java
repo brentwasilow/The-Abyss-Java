@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class InputManager implements KeyListener {
 
-	/**
+	/*
 	 * Boolean array for determining which key is pressed/released
 	 */
 	private boolean[] keys;
