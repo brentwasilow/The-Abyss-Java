@@ -1,5 +1,9 @@
 package com.btwasilow.theabyss.constants;
 
+/*
+ * Static class holding all global constants used throughout the game
+ * (they are final and cannot be modified)
+ */
 public final class Consts {
 	
 	public static final String TITLE = "The Abyss (Java)";
@@ -35,6 +39,8 @@ public final class Consts {
 	public static final int BRICK = 1;
 	public static final int DOOR = 2;
 	
-	private Consts() {
-	}
+	/*
+	 * Don't let anyone instantiate this class
+	 */
+	private Consts() {}
 }

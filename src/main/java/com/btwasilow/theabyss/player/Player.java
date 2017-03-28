@@ -2,27 +2,22 @@ package com.btwasilow.theabyss.player;
 
 public class Player {
 
-	private double health;
-	private double attack;
-	private double xp;
-	private double movementSpeed;
+	/*
+	 * angle the player is facing according to default cartesian
+	 * coordinates/grid (positive x-axis corresponds to 0 degrees)
+	 */
 	private double angle;
-	private double angleSpeed;
+	
+	/*
+	 * Coordinate values of the player on the map where a value of
+	 * 0 is the top left of the map boundary
+	 */
 	private double x;
 	private double y;
-
-	public Player() {
-		init();
-	}
 	
-	public void init() {
-		health = 100.0;
-		attack = 1.0;
-		xp = 0.0;
-		movementSpeed = 5.0;
-		angle = 0.0;
-		angleSpeed = 3.0;
-	}
+	//***********************//
+	//* Getters and Setters *//
+	//***********************//
 	
 	public void setX(double x) {
 		this.x = x;

@@ -1,12 +1,14 @@
 package com.btwasilow.theabyss.utility;
 
+/*
+ * Static class holding all utility fields and methods
+ */
 public final class Util {
 	
 	/*
 	 * Don't let anyone instantiate this class
 	 */
-	private Util() {	
-	}
+	private Util() {}
 	
 	/*
 	 * Bound an angle between 0 and 360 degrees
