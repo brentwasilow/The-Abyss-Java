@@ -5,6 +5,11 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+/*
+ * The Display class represents an encapsulated component of everything
+ * related to our Game window (i.e., the container as well as the 
+ * drawable component).
+ */
 public class Display {
 	
 	/*
