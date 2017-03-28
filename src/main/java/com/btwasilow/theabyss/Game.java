@@ -9,6 +9,7 @@ import com.btwasilow.theabyss.constants.Consts;
 import com.btwasilow.theabyss.display.Display;
 import com.btwasilow.theabyss.input.InputManager;
 import com.btwasilow.theabyss.level.Level;
+import com.btwasilow.theabyss.player.Player;
 
 public class Game implements Runnable {
 
@@ -41,6 +42,7 @@ public class Game implements Runnable {
 	 */
 	private InputManager input;
 	private Level level;
+	private Player player;
 	
 	/*
 	 * Initializes the high-level game component (i.e., the starting point of
@@ -58,6 +60,7 @@ public class Game implements Runnable {
 	private void init() {
 		input = new InputManager();
 		level = new Level("res/level1.png");
+		player = new Player();
 		
 		display = new Display(title, width, height);
 		display.getCanvas().addKeyListener(input);
@@ -94,7 +97,7 @@ public class Game implements Runnable {
 		//**********************//
 		//* Rendering Routines *//
 		//**********************//
-		MapComponent.render(g, level);
+		MapComponent.render(g, level, player);
 		
 		
 		bs.show();
