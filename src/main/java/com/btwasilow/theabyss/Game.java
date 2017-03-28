@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 import com.btwasilow.theabyss.component.MapComponent;
 import com.btwasilow.theabyss.constants.Consts;
 import com.btwasilow.theabyss.display.Display;
+import com.btwasilow.theabyss.input.Input;
 import com.btwasilow.theabyss.level.Level;
 
 public class Game implements Runnable {
@@ -22,6 +23,7 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics2D g;
 	
+	private Input input;
 	private Level level;
 	
 	/**
@@ -43,6 +45,8 @@ public class Game implements Runnable {
 	 */
 	private void init() {
 		display = new Display(title, width, height);
+		
+		input = new Input();
 		level = new Level("res/level1.png");
 	}
 	

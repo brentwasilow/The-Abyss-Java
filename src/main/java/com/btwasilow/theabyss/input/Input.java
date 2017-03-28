@@ -8,7 +8,7 @@ public class Input implements KeyListener {
 	/**
 	 * Boolean array for determining which key is pressed/released
 	 */
-	public boolean[] keys = new boolean[256];
+	private boolean[] keys = new boolean[256];
 	
 	/**
 	 * Sets the boolean keys array position to true for the
@@ -34,4 +34,24 @@ public class Input implements KeyListener {
 	 * Unused but necessarily implemented KeyListener method
 	 */
 	public void keyTyped(KeyEvent e) { }
+	
+	//**********************//
+	//* Key Status Getters *//
+	//**********************//
+	
+	public boolean getLeftKey() {
+		return keys[KeyEvent.VK_LEFT];
+	}
+	
+	public boolean getRightKey() {
+		return keys[KeyEvent.VK_RIGHT];
+	}
+	
+	public boolean getUpKey() {
+		return keys[KeyEvent.VK_UP];
+	}
+	
+	public boolean getDownKey() {
+		return keys[KeyEvent.VK_DOWN];
+	}
 }
