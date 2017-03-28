@@ -57,21 +57,30 @@ public class Level {
 				for (int y = 0; y < height; y++) {
 					int color = image.getRGB(x, y);
 				
-					if (color == Color.WHITE.getRGB()) {
-						map[y][x] = Consts.EMPTY_BLOCK;
-					} else if (color == Color.BLACK.getRGB()) {
-						map[y][x] = Consts.BRICK;
-					} else if (color == Color.BLUE.getRGB()) {
-						map[y][x] = Consts.DOOR;
-					} else if (color == Color.RED.getRGB()) {
-						this.x = x * Consts.TILE_SIZE + Consts.TILE_SIZE_2;
-						this.y = y * Consts.TILE_SIZE + Consts.TILE_SIZE_2;
-					}
+					checkLevelColor(color);
 				}
 			} 
 		} catch (Exception e) {
 			System.out.println("Could not load map file.");
 			System.exit(1);
+		}
+	}
+	
+	/*
+	 * Holds the conditional statement that relates the color of a pixel
+	 * in the level PNG to a given block value, player, and/or sprite
+	 * attribute
+	 */
+	public void checkLevelColor(int color) {
+		if (color == Color.WHITE.getRGB()) {
+			map[y][x] = Consts.EMPTY_BLOCK;
+		} else if (color == Color.BLACK.getRGB()) {
+			map[y][x] = Consts.BRICK;
+		} else if (color == Color.BLUE.getRGB()) {
+			map[y][x] = Consts.DOOR;
+		} else if (color == Color.RED.getRGB()) {
+			this.x = x * Consts.TILE_SIZE + Consts.TILE_SIZE_2;
+			this.y = y * Consts.TILE_SIZE + Consts.TILE_SIZE_2;
 		}
 	}
 	
