@@ -173,7 +173,6 @@ public class Game implements Runnable {
 	
 	/*
 	 * Will be accessed by the Main class to end the game thread safely
-	 *
 	 */
 	public synchronized void stop() {
 		running = false;
