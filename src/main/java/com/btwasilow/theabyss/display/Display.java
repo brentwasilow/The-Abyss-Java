@@ -53,14 +53,16 @@ public class Display {
 		frame.pack();
 	}
 	
-	//***********//
-	//* Getters *//
-	//***********//
-	
+	/*
+	 * JFrame getter
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 	
+	/*
+	 * Canvas getter
+	 */
 	public Canvas getCanvas() {
 		return canvas;
 	}
