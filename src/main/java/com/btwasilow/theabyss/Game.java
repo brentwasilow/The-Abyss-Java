@@ -26,13 +26,9 @@ public class Game implements Runnable {
 	private InputManager input;
 	private Level level;
 	
-	/**
+	/*
 	 * Initializes the high-level game component (i.e., the starting point of
 	 * the game) 
-	 * 
-	 * @param title		name of the game 
-	 * @param width		width of the window
-	 * @param height	height of the window
 	 */
 	public Game(String title, int width, int height) {
 		this.title = title;
@@ -40,7 +36,7 @@ public class Game implements Runnable {
 		this.height = height;
 	}
 
-	/**
+	/*
 	 * Initializes all game components/objects
 	 */
 	private void init() {
@@ -51,7 +47,7 @@ public class Game implements Runnable {
 		display.getCanvas().addKeyListener(input);
 	}
 	
-	/**
+	/*
 	 * Performs all update routine checks (i.e., keyboard, physics, graphics)
 	 */
 	private void update() {
@@ -60,7 +56,7 @@ public class Game implements Runnable {
 		//*******************//
 	}
 	
-	/**
+	/*
 	 * Performs high-level creation of graphics components. Also delegates
 	 * graphics routine updates using a switch statement (i.e., rendering the
 	 * map, enemies, sprites
@@ -89,7 +85,7 @@ public class Game implements Runnable {
 		g.dispose();
 	}
 	
-	/**
+	/*
 	 * Begins the game loop thread, represented using
 	 * a variable fps but stable update timing
 	 */
@@ -138,7 +134,7 @@ public class Game implements Runnable {
 		}
 	}
 	
-	/**
+	/*
 	 * Accessed by our Main class starting the game thread specifically
 	 */
 	public synchronized void start() {
@@ -148,7 +144,7 @@ public class Game implements Runnable {
 		thread.start();
 	}
 	
-	/**
+	/*
 	 * Will be accessed by the Main class to end the game thread safely
 	 *
 	 */
