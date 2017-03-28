@@ -12,17 +12,33 @@ import com.btwasilow.theabyss.level.Level;
 
 public class Game implements Runnable {
 
+	/*
+	 * Holds our display (will be passed around to graphics
+	 * and update methods)
+	 */
 	private Display display;
 	
+	/*
+	 * Game attributes
+	 */
 	private String title;
 	private int width, height;
 	
+	/*
+	 * Game loop/thread components
+	 */
 	private boolean running = false;
 	private Thread thread;
 	
+	/*
+	 * Graphics components
+	 */
 	private BufferStrategy bs;
 	private Graphics2D g;
 	
+	/*
+	 * Managers
+	 */
 	private InputManager input;
 	private Level level;
 	
