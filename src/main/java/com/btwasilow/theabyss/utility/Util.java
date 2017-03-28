@@ -1,13 +1,16 @@
 package com.btwasilow.theabyss.utility;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
-
 public final class Util {
 	
+	/*
+	 * Don't let anyone instantiate this class
+	 */
 	private Util() {	
 	}
 	
+	/*
+	 * Bound an angle between 0 and 360 degrees
+	 */
 	public static double boundAngle(double angle) {
 		if (angle < 0.0) {
 			angle += 360.0;
@@ -15,14 +18,5 @@ public final class Util {
 			angle -= 360.0;
 		}
 		return angle;
-	}
-
-	public static BufferedImage getImageFromArray(int[] pixels, int width, int height) {
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		WritableRaster raster = (WritableRaster) image.getData();
-		raster.setPixels(0, 0, width, height, pixels);
-		image.setData(raster);
-		
-		return image;
 	}
 }
