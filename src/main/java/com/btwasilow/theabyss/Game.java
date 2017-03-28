@@ -11,6 +11,14 @@ import com.btwasilow.theabyss.input.InputManager;
 import com.btwasilow.theabyss.level.Level;
 import com.btwasilow.theabyss.player.Player;
 
+/*
+ * The Game class is the highest level representation of launching our
+ * game, specifically it implements a Thread in-and-of itself. 
+ * 
+ * The Game class holds all of the Managers, States, and fundamentally
+ * implements the rendering and updating methods controlled by a
+ * 60 updates-per-second game loop.
+ */
 public class Game implements Runnable {
 
 	/*
