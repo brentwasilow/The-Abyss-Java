@@ -8,7 +8,15 @@ public class InputManager implements KeyListener {
 	/**
 	 * Boolean array for determining which key is pressed/released
 	 */
-	private boolean[] keys = new boolean[256];
+	private boolean[] keys;
+	
+	/**
+	 * Constructor used to initialize keys with 256 possible
+	 * ASCII values
+	 */
+	public InputManager() {
+		keys = new boolean[256];
+	}
 	
 	/**
 	 * Sets the boolean keys array position to true for the

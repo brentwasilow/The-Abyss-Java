@@ -44,11 +44,11 @@ public class Game implements Runnable {
 	 * Initializes all game components/objects
 	 */
 	private void init() {
-		display = new Display(title, width, height);
-		display.getFrame().addKeyListener(input);
-		
 		input = new InputManager();
 		level = new Level("res/level1.png");
+		
+		display = new Display(title, width, height);
+		display.getCanvas().addKeyListener(input);
 	}
 	
 	/**
