@@ -7,12 +7,23 @@ import javax.swing.JFrame;
 
 public class Display {
 	
+	/*
+	 * The frame component of our display to be used as the outer window
+	 * container, as well as the inner drawable canvas component
+	 */
 	private JFrame frame;
 	private Canvas canvas;
 	
+	/*
+	 * the attributes of our display container
+	 */
 	private String title;
 	private int width, height;
 	
+	/*
+	 * Constructor for our display, consisting of setting the attributes
+	 * accordingly, as well as delegating the display creation
+	 */
 	public Display(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -21,6 +32,10 @@ public class Display {
 		createDisplay();
 	}
 	
+	/*
+	 * Defines the specific attributes of our frame and drawable canvas
+	 * components (i.e., size, allowable operations, and attachments)
+	 */
 	private void createDisplay() {
 		frame = new JFrame(title);
 		frame.setSize(width, height);
@@ -37,6 +52,10 @@ public class Display {
 		frame.add(canvas);
 		frame.pack();
 	}
+	
+	//***********//
+	//* Getters *//
+	//***********//
 	
 	public JFrame getFrame() {
 		return frame;
