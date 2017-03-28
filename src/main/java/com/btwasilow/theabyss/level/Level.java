@@ -9,19 +9,41 @@ import javax.imageio.ImageIO;
 import com.btwasilow.theabyss.constants.Consts;
 import com.btwasilow.theabyss.player.Player;
 
+/*
+ * Represents a Level in our game. Note that we use a matrix to represent
+ * our map, which is loaded using a color-indexed PNG file. Our Level class
+ * was designed so as to maintain encapsulation between the Player class
+ * as follows: each Level class is loaded using a specific PNG with the
+ * starting x and y coords of our player being recorded inside the Level
+ * class. We then create a method such that we can change the player's coords
+ * to the new level's coords at any given time, for which we will delegate
+ * this process to the LevelManager class.
+ */
 public class Level {
 	
-	private Player player;
+	/*
+	 * Representation of the map using a 2D matrix structure
+	 */
 	private int[][] map;
 	
+	/*
+	 * Starting location of the player
+	 */
+	private int x, y;
+	
+	/*
+	 * Level constructor handles loading a map every time a level
+	 * object is created
+	 */
 	public Level(String filename) {
-		// initialize player and load the first map when the level object is created
-		// from here on out we will only need to reload maps
-		player = new Player();
 		loadMap(filename);
 	}
 	
-	public void loadMap(String filename) {
+	/*
+	 * handles loading the map array with the necessary integer
+	 * values using a path to a png (representing a color coded index)
+	 */
+	private void loadMap(String filename) {
 		try {
 			BufferedImage image = ImageIO.read(new File(filename));
 			
@@ -29,6 +51,8 @@ public class Level {
 			int height = image.getHeight();
 			map = new int[width][height];
 			
+			// for each color in the image, store the appropriate 
+			// constant-block value, player info, or sprite info 
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
 					int color = image.getRGB(x, y);
@@ -40,8 +64,8 @@ public class Level {
 					} else if (color == Color.BLUE.getRGB()) {
 						map[y][x] = Consts.DOOR;
 					} else if (color == Color.RED.getRGB()) {
-						player.setX(x * Consts.TILE_SIZE + Consts.TILE_SIZE_2);
-						player.setY(y * Consts.TILE_SIZE + Consts.TILE_SIZE_2);
+						this.x = x * Consts.TILE_SIZE + Consts.TILE_SIZE_2;
+						this.y = y * Consts.TILE_SIZE + Consts.TILE_SIZE_2;
 					}
 				}
 			} 
@@ -51,7 +75,12 @@ public class Level {
 		}
 	}
 	
-	public Player getPlayer() {
-		return player;
+	/*
+	 * Modifies the Player object's starting coordinates to this
+	 * maps starting coordinates
+	 */
+	public void loadPlayerStartingCoords(Player player) {
+		player.setX(this.x);
+		player.setY(this.y);
 	}
 }
